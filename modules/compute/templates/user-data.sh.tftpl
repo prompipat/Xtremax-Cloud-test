@@ -1,0 +1,32 @@
+#!/bin/bash
+set -euo pipefail
+umask 027
+install -d -m 0755 /opt/xtremax
+printf '%s' '${config_b64}' | base64 -d > /opt/xtremax/config.json
+printf '%s' '${bootstrap_b64}' | base64 -d > /opt/xtremax/bootstrap.sh
+printf '%s' '${credentials_b64}' | base64 -d > /opt/xtremax/credentials.py
+printf '%s' '${wp_config_b64}' | base64 -d > /opt/xtremax/wp-config.php
+printf '%s' '${installer_b64}' | base64 -d > /opt/xtremax/install-wordpress.php
+printf '%s' '${health_b64}' | base64 -d > /opt/xtremax/health.php
+printf '%s' '${content_b64}' | base64 -d > /opt/xtremax/initialize-content.sh
+chmod 0755 /opt/xtremax/bootstrap.sh /opt/xtremax/initialize-content.sh
+chmod 0644 /opt/xtremax/config.json /opt/xtremax/*.php
+cat > /etc/systemd/system/xtremax-bootstrap.service <<'UNIT'
+[Unit]
+Description=Prepare WordPress from pinned release and runtime secrets
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=0
+[Service]
+Type=oneshot
+ExecStart=/opt/xtremax/bootstrap.sh
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=30
+TimeoutStartSec=1200
+UMask=0027
+[Install]
+WantedBy=multi-user.target
+UNIT
+systemctl daemon-reload
+systemctl enable --now --no-block xtremax-bootstrap.service

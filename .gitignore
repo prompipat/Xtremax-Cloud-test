@@ -1,0 +1,16 @@
+.tools/
+.private/
+artifacts/
+submission/
+__pycache__/
+*.pyc
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+terraform.tfvars
+*.auto.tfvars
+crash.log
+crash.*.log
+

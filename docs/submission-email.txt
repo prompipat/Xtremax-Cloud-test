@@ -1,0 +1,15 @@
+Subject: Cloud Engineer Technical Test Submission - [Your Name]
+
+Dear Xtremax Recruitment Team,
+
+Please find attached my Cloud Engineer technical-test submission, including the Terraform source ZIP, English implementation report, system and module diagrams, test plan/results and sanitized Terraform-plan evidence.
+
+I used the plan-only option permitted by the test. The complete configuration passed Terraform validation and a real AWS-backed plan (108 additions, 0 changes, 0 deletions), alongside 14 mocked Terraform runs and four initializer unit tests. No AWS resources were deployed.
+
+The report explicitly identifies school.example.com and origin.example.com as planning placeholders because an owned public DNS domain was not available. Certificate issuance, runtime HTTPS, WordPress connectivity and real 30-minute scaling tests are therefore marked NOT RUN. The configuration and documentation describe the owned-DNS prerequisites and deployment verification steps.
+
+Please let me know if you would like any further explanation of the design or evidence.
+
+Kind regards,
+[Your Name]
+[Your Contact Details]

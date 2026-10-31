@@ -1,0 +1,19 @@
+﻿Terraform fmt -check -recursive: PASS
+Success! The configuration is valid.
+
+tests\data-services.tftest.hcl... in progress
+  run "security_boundaries"... pass
+  run "private_encrypted_mysql"... pass
+  run "single_az_lab_database"... pass
+  run "shared_content_guards"... pass
+tests\data-services.tftest.hcl... tearing down
+tests\data-services.tftest.hcl... pass
+tests\network.tftest.hcl... in progress
+  run "two_az_network"... pass
+  run "single_nat_lab"... pass
+  run "reject_duplicate_zones"... pass
+tests\network.tftest.hcl... tearing down
+tests\network.tftest.hcl... pass
+
+Success! 7 passed, 0 failed.
+Plan: 79 to add, 0 to change, 0 to destroy.

@@ -1,0 +1,10 @@
+flowchart TD
+    User[Users] -->|HTTPS| CF[CloudFront - viewer certificate in us-east-1]
+    CF -->|HTTPS 443 + private header| ALB[ALB across two public subnets]
+    ALB -->|HTTP 80 / health.php| ASG[WordPress EC2 ASG in two private app subnets]
+    ASG -->|MySQL TLS 3306| RDS[Private Multi-AZ RDS MySQL in isolated DB subnets]
+    ASG -->|NFS TLS 2049 + IAM access point| EFS[Regional encrypted EFS / shared wp-content]
+    ASG -->|HTTPS 443 via zonal NAT| API[AWS APIs and package sources]
+    INIT[Private Lambda initializer / separate role] -->|TLS; master secret only for initialization| RDS
+    INIT -->|Generate schema-scoped credentials| SECRET[Application secret / shared salts / initial site admin]
+    SECRET -->|Runtime retrieval; no master access| ASG

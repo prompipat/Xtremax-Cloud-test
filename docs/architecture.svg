@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1100" viewBox="0 0 1280 1100" role="img" aria-label="Planned WordPress system architecture">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#52657b"/></marker></defs>
+<rect width="1280" height="1100" fill="#ffffff"/>
+<style>text{font-family:Arial,sans-serif;fill:#17283c}.title{font-size:25px;font-weight:700}.label{font-size:16px;font-weight:700}.body{font-size:14px}.note{font-size:13px;fill:#52657b}.edge{fill:none;stroke:#52657b;stroke-width:2;marker-end:url(#arrow)}</style>
+<text x="40" y="35" class="title" text-anchor="start">WordPress on AWS — planned system architecture</text>
+<text x="40" y="60" class="note" text-anchor="start">Plan-only evidence • ap-southeast-2 • No resources deployed • Example DNS names are placeholders</text>
+<rect x="470" y="90" width="340" height="65" rx="10" fill="#f4f7fb" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="640.0" y="118" class="label" text-anchor="middle">Website users</text>
+<text x="640.0" y="142" class="body" text-anchor="middle">https://school.example.com</text>
+<rect x="470" y="200" width="340" height="85" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="640.0" y="228" class="label" text-anchor="middle">CloudFront</text>
+<text x="640.0" y="252" class="body" text-anchor="middle">Viewer TLS ≥ 1.2; dynamic cache disabled</text>
+<text x="640.0" y="274" class="body" text-anchor="middle">Cache selected public upload images</text>
+<path d="M640 155 L640 200" class="edge"/>
+<text x="690" y="183" class="note" text-anchor="middle">HTTPS</text>
+<rect x="900" y="90" width="330" height="80" rx="10" fill="#fff6e7" stroke="#dbbd85" stroke-width="1.5"/>
+<text x="1065.0" y="118" class="label" text-anchor="middle">ACM and public DNS</text>
+<text x="1065.0" y="142" class="body" text-anchor="middle">Viewer certificate: us-east-1</text>
+<text x="1065.0" y="164" class="body" text-anchor="middle">Origin certificate: ap-southeast-2</text>
+<text x="1065" y="196" class="note" text-anchor="middle">External DNS or existing public Route 53 zone</text>
+<text x="1065" y="218" class="note" text-anchor="middle">Both names require DNS ownership</text>
+<rect x="30" y="310" width="1220" height="620" rx="14" fill="#fafcff" stroke="#7895b6" stroke-width="2"/>
+<text x="55" y="339" class="label" text-anchor="start">VPC 10.20.0.0/16 — three subnet tiers</text>
+<rect x="470" y="355" width="340" height="90" rx="10" fill="#eaf6f2" stroke="#8dbbad" stroke-width="1.5"/>
+<text x="640.0" y="383" class="label" text-anchor="middle">Public HTTPS ALB</text>
+<text x="640.0" y="407" class="body" text-anchor="middle">Origin: origin.example.com</text>
+<text x="640.0" y="429" class="body" text-anchor="middle">Private header required; otherwise 403</text>
+<path d="M640 285 L640 355" class="edge"/>
+<text x="810" y="300" class="note" text-anchor="middle">HTTPS 443 + origin header</text>
+<rect x="60" y="450" width="550" height="440" rx="10" fill="#ffffff" stroke="#bbcbdc" stroke-dasharray="7 4"/>
+<text x="335" y="478" class="label" text-anchor="middle">ap-southeast-2a</text>
+<rect x="80" y="500" width="510" height="75" rx="10" fill="#eef8f3" stroke="#a6cdb8" stroke-width="1.5"/>
+<text x="335.0" y="528" class="label" text-anchor="middle">Public subnet 10.20.0.0/24</text>
+<text x="335.0" y="552" class="body" text-anchor="middle">ALB node + zonal NAT gateway</text>
+<rect x="80" y="625" width="510" height="95" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="335.0" y="653" class="label" text-anchor="middle">Application subnet 10.20.2.0/24</text>
+<text x="335.0" y="677" class="body" text-anchor="middle">Private WordPress EC2 + EFS mount target</text>
+<text x="335.0" y="699" class="body" text-anchor="middle">ASG: min 1 / initial 2 / max 4 across both AZs</text>
+<rect x="80" y="790" width="510" height="75" rx="10" fill="#fff6e7" stroke="#dbbd85" stroke-width="1.5"/>
+<text x="335.0" y="818" class="label" text-anchor="middle">Database subnet 10.20.4.0/24</text>
+<text x="335.0" y="842" class="body" text-anchor="middle">Private RDS Multi-AZ placement; AWS chooses primary</text>
+<path d="M335 575 L335 625" class="edge"/>
+<text x="455" y="606" class="note" text-anchor="middle">ALB → EC2: HTTP 80</text>
+<path d="M335 720 L335 790" class="edge"/>
+<text x="455" y="764" class="note" text-anchor="middle">MySQL 3306 + TLS</text>
+<rect x="670" y="450" width="550" height="440" rx="10" fill="#ffffff" stroke="#bbcbdc" stroke-dasharray="7 4"/>
+<text x="945" y="478" class="label" text-anchor="middle">ap-southeast-2b</text>
+<rect x="690" y="500" width="510" height="75" rx="10" fill="#eef8f3" stroke="#a6cdb8" stroke-width="1.5"/>
+<text x="945.0" y="528" class="label" text-anchor="middle">Public subnet 10.20.1.0/24</text>
+<text x="945.0" y="552" class="body" text-anchor="middle">ALB node + zonal NAT gateway</text>
+<rect x="690" y="625" width="510" height="95" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="945.0" y="653" class="label" text-anchor="middle">Application subnet 10.20.3.0/24</text>
+<text x="945.0" y="677" class="body" text-anchor="middle">Private WordPress EC2 + EFS mount target</text>
+<text x="945.0" y="699" class="body" text-anchor="middle">ASG: min 1 / initial 2 / max 4 across both AZs</text>
+<rect x="690" y="790" width="510" height="75" rx="10" fill="#fff6e7" stroke="#dbbd85" stroke-width="1.5"/>
+<text x="945.0" y="818" class="label" text-anchor="middle">Database subnet 10.20.5.0/24</text>
+<text x="945.0" y="842" class="body" text-anchor="middle">Private RDS Multi-AZ placement; AWS chooses primary</text>
+<path d="M945 575 L945 625" class="edge"/>
+<text x="1065" y="606" class="note" text-anchor="middle">ALB → EC2: HTTP 80</text>
+<path d="M945 720 L945 790" class="edge"/>
+<text x="1065" y="764" class="note" text-anchor="middle">MySQL 3306 + TLS</text>
+<path d="M520 445 L335 500" class="edge"/>
+<path d="M760 445 L945 500" class="edge"/>
+<rect x="440" y="975" width="400" height="85" rx="10" fill="#f0edfb" stroke="#baacdb" stroke-width="1.5"/>
+<text x="640.0" y="1003" class="label" text-anchor="middle">Regional EFS: shared wp-content</text>
+<text x="640.0" y="1027" class="body" text-anchor="middle">At-rest encryption; TLS + IAM access point</text>
+<text x="640.0" y="1049" class="body" text-anchor="middle">NFS lock serializes content/schema installation</text>
+<path d="M80 672 L45 672 L45 1015 L440 1015" class="edge"/>
+<path d="M1200 672 L1235 672 L1235 1015 L840 1015" class="edge"/>
+<text x="640" y="953" class="note" text-anchor="middle">NAT/IGW: application HTTPS egress only • DB has no internet default route • SGs + stateless tier NACLs</text>
+<text x="240" y="1045" class="note" text-anchor="middle">EFS: 2049 + TLS</text>
+<text x="1040" y="1045" class="note" text-anchor="middle">EFS: 2049 + TLS</text>
+</svg>

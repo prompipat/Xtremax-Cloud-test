@@ -1,0 +1,12 @@
+﻿Terraform fmt -check -recursive: PASS
+Success! The configuration is valid.
+
+tests\network.tftest.hcl... in progress
+  run "two_az_network"... pass
+  run "single_nat_lab"... pass
+  run "reject_duplicate_zones"... pass
+tests\network.tftest.hcl... tearing down
+tests\network.tftest.hcl... pass
+
+Success! 3 passed, 0 failed.
+Plan: 56 to add, 0 to change, 0 to destroy.

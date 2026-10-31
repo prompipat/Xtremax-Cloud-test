@@ -1,0 +1,2801 @@
+SANITIZED REAL TERRAFORM PLAN — NOT A DEPLOYMENT RESULT
+Example DNS names are placeholders. No certificate has been issued or runtime HTTPS tested.
+Account IDs, workspace paths and any marked sensitive values are redacted.
+
+module.security.data.aws_ec2_managed_prefix_list.cloudfront: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_region.current: Read complete after 0s [id=ap-southeast-2]
+data.aws_caller_identity.current: Read complete after 1s [id=[AWS-ACCOUNT-ID]]
+data.aws_availability_zones.available: Read complete after 2s [id=ap-southeast-2]
+module.security.data.aws_ec2_managed_prefix_list.cloudfront: Read complete after 2s [id=pl-b8a742d1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # random_password.origin_header will be created
+  + resource "random_password" "origin_header" {
+      + bcrypt_hash = (sensitive value)
+      + id          = (known after apply)
+      + length      = 48
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (sensitive value)
+      + special     = false
+      + upper       = true
+    }
+
+  # module.cdn.aws_cloudfront_cache_policy.dynamic will be created
+  + resource "aws_cloudfront_cache_policy" "dynamic" {
+      + arn         = (known after apply)
+      + default_ttl = 0
+      + etag        = (known after apply)
+      + id          = (known after apply)
+      + max_ttl     = 0
+      + min_ttl     = 0
+      + name        = "xtremax-wordpress-dynamic"
+
+      + parameters_in_cache_key_and_forwarded_to_origin {
+          + cookies_config {
+              + cookie_behavior = "none"
+            }
+          + headers_config {
+              + header_behavior = "none"
+            }
+          + query_strings_config {
+              + query_string_behavior = "none"
+            }
+        }
+    }
+
+  # module.cdn.aws_cloudfront_cache_policy.public_images will be created
+  + resource "aws_cloudfront_cache_policy" "public_images" {
+      + arn         = (known after apply)
+      + default_ttl = 86400
+      + etag        = (known after apply)
+      + id          = (known after apply)
+      + max_ttl     = 604800
+      + min_ttl     = 0
+      + name        = "xtremax-wordpress-public-images"
+
+      + parameters_in_cache_key_and_forwarded_to_origin {
+          + enable_accept_encoding_brotli = true
+          + enable_accept_encoding_gzip   = true
+
+          + cookies_config {
+              + cookie_behavior = "none"
+            }
+
+          + headers_config {
+              + header_behavior = "none"
+            }
+
+          + query_strings_config {
+              + query_string_behavior = "all"
+            }
+        }
+    }
+
+  # module.cdn.aws_cloudfront_distribution.this will be created
+  + resource "aws_cloudfront_distribution" "this" {
+      + aliases                         = [
+          + "school.example.com",
+        ]
+      + arn                             = (known after apply)
+      + caller_reference                = (known after apply)
+      + comment                         = "WordPress: dynamic cache disabled; public upload images cached"
+      + continuous_deployment_policy_id = (known after apply)
+      + domain_name                     = (known after apply)
+      + enabled                         = true
+      + etag                            = (known after apply)
+      + hosted_zone_id                  = (known after apply)
+      + http_version                    = "http2and3"
+      + id                              = (known after apply)
+      + in_progress_validation_batches  = (known after apply)
+      + is_ipv6_enabled                 = true
+      + last_modified_time              = (known after apply)
+      + logging_v1_enabled              = (known after apply)
+      + price_class                     = "PriceClass_All"
+      + retain_on_delete                = false
+      + staging                         = false
+      + status                          = (known after apply)
+      + tags_all                        = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + trusted_key_groups              = (known after apply)
+      + trusted_signers                 = (known after apply)
+      + wait_for_deployment             = true
+
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 400
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 403
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 404
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 405
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 414
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 416
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 500
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 501
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 502
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 503
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 504
+            # (1 unchanged attribute hidden)
+        }
+
+      + default_cache_behavior {
+          + allowed_methods            = [
+              + "DELETE",
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+              + "PATCH",
+              + "POST",
+              + "PUT",
+            ]
+          + cache_policy_id            = (known after apply)
+          + cached_methods             = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                   = true
+          + default_ttl                = (known after apply)
+          + max_ttl                    = (known after apply)
+          + min_ttl                    = 0
+          + origin_request_policy_id   = (known after apply)
+          + response_headers_policy_id = (known after apply)
+          + target_origin_id           = "[REDACTED-SENSITIVE]"
+          + trusted_key_groups         = (known after apply)
+          + trusted_signers            = (known after apply)
+          + viewer_protocol_policy     = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+
+      + ordered_cache_behavior {
+          + allowed_methods            = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id            = (known after apply)
+          + cached_methods             = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                   = true
+          + default_ttl                = (known after apply)
+          + max_ttl                    = (known after apply)
+          + min_ttl                    = 0
+          + path_pattern               = "/wp-content/uploads/*.jpg"
+          + response_headers_policy_id = (known after apply)
+          + target_origin_id           = "[REDACTED-SENSITIVE]"
+          + viewer_protocol_policy     = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+      + ordered_cache_behavior {
+          + allowed_methods            = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id            = (known after apply)
+          + cached_methods             = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                   = true
+          + default_ttl                = (known after apply)
+          + max_ttl                    = (known after apply)
+          + min_ttl                    = 0
+          + path_pattern               = "/wp-content/uploads/*.jpeg"
+          + response_headers_policy_id = (known after apply)
+          + target_origin_id           = "[REDACTED-SENSITIVE]"
+          + viewer_protocol_policy     = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+      + ordered_cache_behavior {
+          + allowed_methods            = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id            = (known after apply)
+          + cached_methods             = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                   = true
+          + default_ttl                = (known after apply)
+          + max_ttl                    = (known after apply)
+          + min_ttl                    = 0
+          + path_pattern               = "/wp-content/uploads/*.png"
+          + response_headers_policy_id = (known after apply)
+          + target_origin_id           = "[REDACTED-SENSITIVE]"
+          + viewer_protocol_policy     = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+      + ordered_cache_behavior {
+          + allowed_methods            = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id            = (known after apply)
+          + cached_methods             = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                   = true
+          + default_ttl                = (known after apply)
+          + max_ttl                    = (known after apply)
+          + min_ttl                    = 0
+          + path_pattern               = "/wp-content/uploads/*.gif"
+          + response_headers_policy_id = (known after apply)
+          + target_origin_id           = "[REDACTED-SENSITIVE]"
+          + viewer_protocol_policy     = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+      + ordered_cache_behavior {
+          + allowed_methods            = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id            = (known after apply)
+          + cached_methods             = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                   = true
+          + default_ttl                = (known after apply)
+          + max_ttl                    = (known after apply)
+          + min_ttl                    = 0
+          + path_pattern               = "/wp-content/uploads/*.webp"
+          + response_headers_policy_id = (known after apply)
+          + target_origin_id           = "[REDACTED-SENSITIVE]"
+          + viewer_protocol_policy     = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+      + ordered_cache_behavior {
+          + allowed_methods            = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id            = (known after apply)
+          + cached_methods             = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                   = true
+          + default_ttl                = (known after apply)
+          + max_ttl                    = (known after apply)
+          + min_ttl                    = 0
+          + path_pattern               = "/wp-content/uploads/*.avif"
+          + response_headers_policy_id = (known after apply)
+          + target_origin_id           = "[REDACTED-SENSITIVE]"
+          + viewer_protocol_policy     = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+
+      + origin {
+          # At least one attribute in this block is (or was) sensitive,
+          # so its contents will not be displayed.
+        }
+
+      + restrictions {
+          + geo_restriction {
+              + locations        = (known after apply)
+              + restriction_type = "none"
+            }
+        }
+
+      + viewer_certificate {
+          + acm_certificate_arn      = (known after apply)
+          + minimum_protocol_version = "TLSv1.2_2021"
+          + ssl_support_method       = "sni-only"
+        }
+    }
+
+  # module.cdn.aws_cloudfront_origin_request_policy.dynamic will be created
+  + resource "aws_cloudfront_origin_request_policy" "dynamic" {
+      + arn  = (known after apply)
+      + etag = (known after apply)
+      + id   = (known after apply)
+      + name = "xtremax-wordpress-dynamic"
+
+      + cookies_config {
+          + cookie_behavior = "all"
+        }
+
+      + headers_config {
+          + header_behavior = "allExcept"
+
+          + headers {
+              + items = [
+                  + "Host",
+                ]
+            }
+        }
+
+      + query_strings_config {
+          + query_string_behavior = "all"
+        }
+    }
+
+  # module.cdn.aws_cloudfront_response_headers_policy.security will be created
+  + resource "aws_cloudfront_response_headers_policy" "security" {
+      + arn  = (known after apply)
+      + etag = (known after apply)
+      + id   = (known after apply)
+      + name = "xtremax-wordpress-security"
+
+      + security_headers_config {
+          + content_type_options {
+              + override = true
+            }
+          + frame_options {
+              + frame_option = "SAMEORIGIN"
+              + override     = false
+            }
+          + referrer_policy {
+              + override        = true
+              + referrer_policy = "strict-origin-when-cross-origin"
+            }
+          + strict_transport_security {
+              + access_control_max_age_sec = 31536000
+              + include_subdomains         = false
+              + override                   = true
+              + preload                    = false
+            }
+        }
+    }
+
+  # module.certificates.aws_acm_certificate.origin will be created
+  + resource "aws_acm_certificate" "origin" {
+      + arn                       = (known after apply)
+      + domain_name               = "[REDACTED-SENSITIVE]"
+      + domain_validation_options = [
+          + {
+              + domain_name           = "[REDACTED-SENSITIVE]"
+              + resource_record_name  = (known after apply)
+              + resource_record_type  = (known after apply)
+              + resource_record_value = (known after apply)
+            },
+        ]
+      + id                        = (known after apply)
+      + key_algorithm             = (known after apply)
+      + not_after                 = (known after apply)
+      + not_before                = (known after apply)
+      + pending_renewal           = (known after apply)
+      + private_key_wo            = (write-only attribute)
+      + region                    = "ap-southeast-2"
+      + renewal_eligibility       = (known after apply)
+      + renewal_summary           = (known after apply)
+      + status                    = (known after apply)
+      + subject_alternative_names = [
+          + "[REDACTED-SENSITIVE]",
+        ]
+      + tags                      = {
+          + "Name" = "xtremax-wordpress-origin"
+        }
+      + tags_all                  = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-origin"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + type                      = (known after apply)
+      + validation_emails         = (known after apply)
+      + validation_method         = "DNS"
+
+      + options (known after apply)
+    }
+
+  # module.certificates.aws_acm_certificate.viewer will be created
+  + resource "aws_acm_certificate" "viewer" {
+      + arn                       = (known after apply)
+      + domain_name               = "school.example.com"
+      + domain_validation_options = [
+          + {
+              + domain_name           = "school.example.com"
+              + resource_record_name  = (known after apply)
+              + resource_record_type  = (known after apply)
+              + resource_record_value = (known after apply)
+            },
+        ]
+      + id                        = (known after apply)
+      + key_algorithm             = (known after apply)
+      + not_after                 = (known after apply)
+      + not_before                = (known after apply)
+      + pending_renewal           = (known after apply)
+      + private_key_wo            = (write-only attribute)
+      + region                    = "us-east-1"
+      + renewal_eligibility       = (known after apply)
+      + renewal_summary           = (known after apply)
+      + status                    = (known after apply)
+      + subject_alternative_names = [
+          + "school.example.com",
+        ]
+      + tags                      = {
+          + "Name" = "xtremax-wordpress-viewer"
+        }
+      + tags_all                  = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-viewer"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + type                      = (known after apply)
+      + validation_emails         = (known after apply)
+      + validation_method         = "DNS"
+
+      + options (known after apply)
+    }
+
+  # module.certificates.aws_acm_certificate_validation.origin will be created
+  + resource "aws_acm_certificate_validation" "origin" {
+      + certificate_arn         = (known after apply)
+      + id                      = (known after apply)
+      + region                  = "ap-southeast-2"
+      + validation_record_fqdns = (known after apply)
+    }
+
+  # module.certificates.aws_acm_certificate_validation.viewer will be created
+  + resource "aws_acm_certificate_validation" "viewer" {
+      + certificate_arn         = (known after apply)
+      + id                      = (known after apply)
+      + region                  = "us-east-1"
+      + validation_record_fqdns = (known after apply)
+    }
+
+  # module.compute.data.aws_ami.wordpress_base will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_ami" "wordpress_base" {
+      + architecture          = (known after apply)
+      + arn                   = (known after apply)
+      + block_device_mappings = (known after apply)
+      + boot_mode             = (known after apply)
+      + creation_date         = (known after apply)
+      + deprecation_time      = (known after apply)
+      + description           = (known after apply)
+      + ena_support           = (known after apply)
+      + hypervisor            = (known after apply)
+      + id                    = (known after apply)
+      + image_id              = (known after apply)
+      + image_location        = (known after apply)
+      + image_owner_alias     = (known after apply)
+      + image_type            = (known after apply)
+      + imds_support          = (known after apply)
+      + kernel_id             = (known after apply)
+      + last_launched_time    = (known after apply)
+      + name                  = (known after apply)
+      + owner_id              = (known after apply)
+      + owners                = [
+          + "amazon",
+        ]
+      + platform              = (known after apply)
+      + platform_details      = (known after apply)
+      + product_codes         = (known after apply)
+      + public                = (known after apply)
+      + ramdisk_id            = (known after apply)
+      + region                = (known after apply)
+      + root_device_name      = (known after apply)
+      + root_device_type      = (known after apply)
+      + root_snapshot_id      = (known after apply)
+      + sriov_net_support     = (known after apply)
+      + state                 = (known after apply)
+      + state_reason          = (known after apply)
+      + tags                  = (known after apply)
+      + tpm_support           = (known after apply)
+      + usage_operation       = (known after apply)
+      + virtualization_type   = (known after apply)
+
+      + filter {
+          + name   = "architecture"
+          + values = [
+              + "x86_64",
+            ]
+        }
+      + filter {
+          + name   = "image-id"
+          + values = [
+              + "ami-062900c135ab91582",
+            ]
+        }
+      + filter {
+          + name   = "state"
+          + values = [
+              + "available",
+            ]
+        }
+    }
+
+  # module.compute.data.aws_partition.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_partition" "current" {
+      + dns_suffix         = (known after apply)
+      + id                 = (known after apply)
+      + partition          = (known after apply)
+      + reverse_dns_prefix = (known after apply)
+    }
+
+  # module.compute.data.aws_region.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_region" "current" {
+      + description = (known after apply)
+      + endpoint    = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + region      = (known after apply)
+    }
+
+  # module.compute.aws_autoscaling_group.wordpress will be created
+  + resource "aws_autoscaling_group" "wordpress" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + default_instance_warmup          = 600
+      + desired_capacity                 = 2
+      + enabled_metrics                  = [
+          + "GroupDesiredCapacity",
+          + "GroupInServiceInstances",
+          + "GroupTotalInstances",
+        ]
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 900
+      + health_check_type                = "ELB"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 4
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = (known after apply)
+      + name_prefix                      = "xtremax-wordpress-"
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + region                           = "ap-southeast-2"
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = (known after apply)
+      + wait_for_capacity_timeout        = "0"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + instance_lifecycle_policy (known after apply)
+
+      + instance_refresh {
+          + strategy = "Rolling"
+
+          + preferences {
+              + instance_warmup              = "600"
+              + max_healthy_percentage       = 100
+              + min_healthy_percentage       = 50
+              + scale_in_protected_instances = "Ignore"
+              + skip_matching                = false
+              + standby_instances            = "Ignore"
+            }
+        }
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = (known after apply)
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "xtremax-wordpress"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # module.compute.aws_autoscaling_policy.cpu["in"] will be created
+  + resource "aws_autoscaling_policy" "cpu" {
+      + adjustment_type           = "ChangeInCapacity"
+      + arn                       = (known after apply)
+      + autoscaling_group_name    = (known after apply)
+      + enabled                   = true
+      + estimated_instance_warmup = 600
+      + id                        = (known after apply)
+      + metric_aggregation_type   = "Average"
+      + name                      = "xtremax-wordpress-cpu-in"
+      + policy_type               = "StepScaling"
+      + region                    = "ap-southeast-2"
+
+      + step_adjustment {
+          + metric_interval_upper_bound = "0"
+          + scaling_adjustment          = -1
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # module.compute.aws_autoscaling_policy.cpu["out"] will be created
+  + resource "aws_autoscaling_policy" "cpu" {
+      + adjustment_type           = "ChangeInCapacity"
+      + arn                       = (known after apply)
+      + autoscaling_group_name    = (known after apply)
+      + enabled                   = true
+      + estimated_instance_warmup = 600
+      + id                        = (known after apply)
+      + metric_aggregation_type   = "Average"
+      + name                      = "xtremax-wordpress-cpu-out"
+      + policy_type               = "StepScaling"
+      + region                    = "ap-southeast-2"
+
+      + step_adjustment {
+          + metric_interval_lower_bound = "0"
+          + scaling_adjustment          = 1
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # module.compute.aws_cloudwatch_metric_alarm.cpu["in"] will be created
+  + resource "aws_cloudwatch_metric_alarm" "cpu" {
+      + actions_enabled                       = true
+      + alarm_actions                         = (known after apply)
+      + alarm_description                     = "ASG average CPU LessThanThreshold 40% for six 300-second evaluation periods"
+      + alarm_name                            = "xtremax-wordpress-cpu-in"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "LessThanThreshold"
+      + datapoints_to_alarm                   = 6
+      + dimensions                            = (known after apply)
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 6
+      + id                                    = (known after apply)
+      + metric_name                           = "CPUUtilization"
+      + namespace                             = "AWS/EC2"
+      + period                                = 300
+      + region                                = "ap-southeast-2"
+      + statistic                             = "Average"
+      + tags_all                              = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + threshold                             = 40
+      + treat_missing_data                    = "notBreaching"
+      + unit                                  = "Percent"
+    }
+
+  # module.compute.aws_cloudwatch_metric_alarm.cpu["out"] will be created
+  + resource "aws_cloudwatch_metric_alarm" "cpu" {
+      + actions_enabled                       = true
+      + alarm_actions                         = (known after apply)
+      + alarm_description                     = "ASG average CPU GreaterThanThreshold 80% for six 300-second evaluation periods"
+      + alarm_name                            = "xtremax-wordpress-cpu-out"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + datapoints_to_alarm                   = 6
+      + dimensions                            = (known after apply)
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 6
+      + id                                    = (known after apply)
+      + metric_name                           = "CPUUtilization"
+      + namespace                             = "AWS/EC2"
+      + period                                = 300
+      + region                                = "ap-southeast-2"
+      + statistic                             = "Average"
+      + tags_all                              = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + threshold                             = 80
+      + treat_missing_data                    = "notBreaching"
+      + unit                                  = "Percent"
+    }
+
+  # module.compute.aws_iam_instance_profile.wordpress will be created
+  + resource "aws_iam_instance_profile" "wordpress" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = "xtremax-wordpress-"
+      + path        = "/"
+      + role        = (known after apply)
+      + tags_all    = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + unique_id   = (known after apply)
+    }
+
+  # module.compute.aws_iam_role.wordpress will be created
+  + resource "aws_iam_role" "wordpress" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "xtremax-wordpress-ec2-"
+      + path                  = "/"
+      + tags_all              = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.compute.aws_iam_role_policy.wordpress will be created
+  + resource "aws_iam_role_policy" "wordpress" {
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # module.compute.aws_launch_template.wordpress will be created
+  + resource "aws_launch_template" "wordpress" {
+      + arn             = (known after apply)
+      + default_version = (known after apply)
+      + id              = (known after apply)
+      + image_id        = (known after apply)
+      + instance_type   = "t3.small"
+      + latest_version  = (known after apply)
+      + name            = (known after apply)
+      + name_prefix     = "xtremax-wordpress-"
+      + region          = "ap-southeast-2"
+      + tags_all        = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + user_data       = (known after apply)
+
+      + block_device_mappings {
+          + device_name = "/dev/xvda"
+
+          + ebs {
+              + delete_on_termination      = "true"
+              + encrypted                  = "true"
+              + iops                       = (known after apply)
+              + throughput                 = (known after apply)
+              + volume_initialization_rate = (known after apply)
+              + volume_size                = 20
+              + volume_type                = "gp3"
+            }
+        }
+
+      + credit_specification {
+          + cpu_credits = "unlimited"
+        }
+
+      + iam_instance_profile {
+          + name = (known after apply)
+        }
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = (known after apply)
+          + http_put_response_hop_limit = 1
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + monitoring {
+          + enabled = true
+        }
+
+      + network_interfaces {
+          + associate_public_ip_address = "false"
+          + delete_on_termination       = "true"
+          + security_groups             = (known after apply)
+        }
+
+      + tag_specifications {
+          + resource_type = "instance"
+          + tags          = {
+              + "ManagedBy" = "Terraform"
+              + "Name"      = "xtremax-wordpress"
+              + "Project"   = "xtremax-wordpress"
+            }
+        }
+      + tag_specifications {
+          + resource_type = "volume"
+          + tags          = {
+              + "ManagedBy" = "Terraform"
+              + "Name"      = "xtremax-wordpress-root"
+              + "Project"   = "xtremax-wordpress"
+            }
+        }
+    }
+
+  # module.database.aws_cloudwatch_log_group.database["error"] will be created
+  + resource "aws_cloudwatch_log_group" "database" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/rds/instance/xtremax-wordpress/error"
+      + name_prefix                 = (known after apply)
+      + region                      = "ap-southeast-2"
+      + retention_in_days           = 30
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+    }
+
+  # module.database.aws_cloudwatch_log_group.database["slowquery"] will be created
+  + resource "aws_cloudwatch_log_group" "database" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/rds/instance/xtremax-wordpress/slowquery"
+      + name_prefix                 = (known after apply)
+      + region                      = "ap-southeast-2"
+      + retention_in_days           = 30
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+    }
+
+  # module.database.aws_db_instance.this will be created
+  + resource "aws_db_instance" "this" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 20
+      + allow_major_version_upgrade           = false
+      + apply_immediately                     = false
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = 7
+      + backup_target                         = (known after apply)
+      + backup_window                         = "15:00-16:00"
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = true
+      + database_insights_mode                = (known after apply)
+      + db_name                               = "wordpress"
+      + db_subnet_group_name                  = "xtremax-wordpress"
+      + dedicated_log_volume                  = false
+      + delete_automated_backups              = false
+      + deletion_protection                   = true
+      + domain_fqdn                           = (known after apply)
+      + enabled_cloudwatch_logs_exports       = [
+          + "error",
+          + "slowquery",
+        ]
+      + endpoint                              = (known after apply)
+      + engine                                = "mysql"
+      + engine_lifecycle_support              = (known after apply)
+      + engine_version                        = "8.4.11"
+      + engine_version_actual                 = (known after apply)
+      + final_snapshot_identifier             = "xtremax-wordpress-final-001"
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = "xtremax-wordpress"
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.t4g.micro"
+      + iops                                  = (known after apply)
+      + kms_key_id                            = (known after apply)
+      + latest_restorable_time                = (known after apply)
+      + license_model                         = (known after apply)
+      + listener_endpoint                     = (known after apply)
+      + maintenance_window                    = "sun:17:00-sun:18:00"
+      + manage_master_user_password           = true
+      + master_user_secret                    = (known after apply)
+      + master_user_secret_kms_key_id         = (known after apply)
+      + max_allocated_storage                 = 100
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = true
+      + multi_tenant                          = (known after apply)
+      + nchar_character_set_name              = (known after apply)
+      + network_type                          = (known after apply)
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = (known after apply)
+      + password_wo                           = (write-only attribute)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = 3306
+      + publicly_accessible                   = false
+      + region                                = "ap-southeast-2"
+      + replica_mode                          = (known after apply)
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = false
+      + snapshot_identifier                   = (known after apply)
+      + status                                = (known after apply)
+      + storage_encrypted                     = true
+      + storage_throughput                    = (known after apply)
+      + storage_type                          = "gp3"
+      + tags                                  = {
+          + "Name" = "xtremax-wordpress"
+        }
+      + tags_all                              = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + timezone                              = (known after apply)
+      + upgrade_rollout_order                 = (known after apply)
+      + username                              = "wpadmin"
+      + vpc_security_group_ids                = (known after apply)
+    }
+
+  # module.database.aws_db_parameter_group.this will be created
+  + resource "aws_db_parameter_group" "this" {
+      + arn          = (known after apply)
+      + description  = "MySQL TLS enforcement and slow-query logging"
+      + family       = "mysql8.4"
+      + id           = (known after apply)
+      + name         = (known after apply)
+      + name_prefix  = "xtremax-wordpress-"
+      + region       = "ap-southeast-2"
+      + skip_destroy = false
+      + tags_all     = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+
+      + parameter {
+          + apply_method = "immediate"
+          + name         = "log_output"
+          + value        = "FILE"
+        }
+      + parameter {
+          + apply_method = "immediate"
+          + name         = "require_secure_transport"
+          + value        = "ON"
+        }
+      + parameter {
+          + apply_method = "immediate"
+          + name         = "slow_query_log"
+          + value        = "1"
+        }
+    }
+
+  # module.database.aws_db_subnet_group.this will be created
+  + resource "aws_db_subnet_group" "this" {
+      + arn                     = (known after apply)
+      + description             = "Managed by Terraform"
+      + id                      = (known after apply)
+      + name                    = "xtremax-wordpress"
+      + name_prefix             = (known after apply)
+      + region                  = "ap-southeast-2"
+      + subnet_ids              = (known after apply)
+      + supported_network_types = (known after apply)
+      + tags                    = {
+          + "Name" = "xtremax-wordpress"
+        }
+      + tags_all                = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                  = (known after apply)
+    }
+
+  # module.initialization.data.aws_caller_identity.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_caller_identity" "current" {
+      + account_id = (known after apply)
+      + arn        = (known after apply)
+      + id         = (known after apply)
+      + user_id    = (known after apply)
+    }
+
+  # module.initialization.data.aws_partition.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_partition" "current" {
+      + dns_suffix         = (known after apply)
+      + id                 = (known after apply)
+      + partition          = (known after apply)
+      + reverse_dns_prefix = (known after apply)
+    }
+
+  # module.initialization.data.aws_region.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_region" "current" {
+      + description = (known after apply)
+      + endpoint    = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + region      = (known after apply)
+    }
+
+  # module.initialization.aws_cloudwatch_log_group.initializer will be created
+  + resource "aws_cloudwatch_log_group" "initializer" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/xtremax-wordpress-db-init"
+      + name_prefix                 = (known after apply)
+      + region                      = "ap-southeast-2"
+      + retention_in_days           = 30
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+    }
+
+  # module.initialization.aws_iam_role.initializer will be created
+  + resource "aws_iam_role" "initializer" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "xtremax-wordpress-db-init-"
+      + path                  = "/"
+      + tags_all              = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.initialization.aws_iam_role_policy.initializer will be created
+  + resource "aws_iam_role_policy" "initializer" {
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # module.initialization.aws_lambda_function.initializer will be created
+  + resource "aws_lambda_function" "initializer" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "[WORKSPACE]/artifacts/db-initializer.zip"
+      + function_name                  = "xtremax-wordpress-db-init"
+      + handler                        = "handler.handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 256
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "ap-southeast-2"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "python3.13"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "dJjJXGnUURxzfSGiwph4hPxI2PhyLeT5OGVRJr79Gh8="
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + timeout                        = 180
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = (known after apply)
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+
+      + vpc_config {
+          + ipv6_allowed_for_dual_stack = false
+          + security_group_ids          = (known after apply)
+          + subnet_ids                  = (known after apply)
+          + vpc_id                      = (known after apply)
+        }
+    }
+
+  # module.initialization.aws_lambda_invocation.initialize will be created
+  + resource "aws_lambda_invocation" "initialize" {
+      + function_name   = "xtremax-wordpress-db-init"
+      + id              = (known after apply)
+      + input           = jsonencode(
+            {
+              + operation = "initialize"
+            }
+        )
+      + lifecycle_scope = "CREATE_ONLY"
+      + qualifier       = "$LATEST"
+      + region          = "ap-southeast-2"
+      + result          = (known after apply)
+      + terraform_key   = "tf"
+      + triggers        = (known after apply)
+    }
+
+  # module.initialization.aws_secretsmanager_secret.application will be created
+  + resource "aws_secretsmanager_secret" "application" {
+      + arn                            = (known after apply)
+      + description                    = "Schema-scoped DB credentials, WordPress salts and initial site admin credentials"
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + name                           = (known after apply)
+      + name_prefix                    = "xtremax-wordpress-application-"
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 7
+      + region                         = "ap-southeast-2"
+      + tags_all                       = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+    }
+
+  # module.load_balancer.aws_lb.this will be created
+  + resource "aws_lb" "this" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "strictest"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = true
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_prefix_for_ipv6_source_nat                            = (known after apply)
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = "ipv4"
+      + load_balancer_type                                           = "application"
+      + name                                                         = "xtremax-wordpress"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + region                                                       = "ap-southeast-2"
+      + secondary_ips_auto_assigned_per_subnet                       = (known after apply)
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Name" = "xtremax-wordpress"
+        }
+      + tags_all                                                     = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # module.load_balancer.aws_lb_listener.https will be created
+  + resource "aws_lb_listener" "https" {
+      + arn                                                                   = (known after apply)
+      + certificate_arn                                                       = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 443
+      + protocol                                                              = "HTTPS"
+      + region                                                                = "ap-southeast-2"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+      + tags_all                                                              = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order = (known after apply)
+          + type  = "fixed-response"
+
+          + fixed_response {
+              + content_type = "text/plain"
+              + message_body = "Forbidden"
+              + status_code  = "403"
+            }
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # module.load_balancer.aws_lb_listener_rule.cloudfront_only will be created
+  + resource "aws_lb_listener_rule" "cloudfront_only" {
+      + arn          = (known after apply)
+      + id           = (known after apply)
+      + listener_arn = (known after apply)
+      + priority     = 100
+      + region       = "ap-southeast-2"
+      + tags_all     = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+
+      + action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + condition {
+          # At least one attribute in this block is (or was) sensitive,
+          # so its contents will not be displayed.
+        }
+    }
+
+  # module.load_balancer.aws_lb_target_group.wordpress will be created
+  + resource "aws_lb_target_group" "wordpress" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "120"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "xtremax-wordpress"
+      + name_prefix                        = (known after apply)
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + region                             = "ap-southeast-2"
+      + slow_start                         = 0
+      + tags_all                           = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + target_type                        = "instance"
+      + vpc_id                             = (known after apply)
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200"
+          + path                = "/health.php"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 3
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # module.network.aws_default_security_group.this will be created
+  + resource "aws_default_security_group" "this" {
+      + arn                    = (known after apply)
+      + description            = (known after apply)
+      + egress                 = []
+      + id                     = (known after apply)
+      + ingress                = []
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "ap-southeast-2"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "xtremax-wordpress-unused-default"
+        }
+      + tags_all               = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-unused-default"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.network.aws_eip.nat["ap-southeast-2a"] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "ap-southeast-2"
+      + tags                 = {
+          + "Name" = "xtremax-wordpress-nat-ap-southeast-2a"
+        }
+      + tags_all             = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-nat-ap-southeast-2a"
+          + "Project"   = "xtremax-wordpress"
+        }
+    }
+
+  # module.network.aws_eip.nat["ap-southeast-2b"] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "ap-southeast-2"
+      + tags                 = {
+          + "Name" = "xtremax-wordpress-nat-ap-southeast-2b"
+        }
+      + tags_all             = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-nat-ap-southeast-2b"
+          + "Project"   = "xtremax-wordpress"
+        }
+    }
+
+  # module.network.aws_internet_gateway.this will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "ap-southeast-2"
+      + tags     = {
+          + "Name" = "xtremax-wordpress-igw"
+        }
+      + tags_all = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-igw"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.network.aws_nat_gateway.this["ap-southeast-2a"] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "ap-southeast-2"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "xtremax-wordpress-nat-ap-southeast-2a"
+        }
+      + tags_all                           = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-nat-ap-southeast-2a"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # module.network.aws_nat_gateway.this["ap-southeast-2b"] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "ap-southeast-2"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "xtremax-wordpress-nat-ap-southeast-2b"
+        }
+      + tags_all                           = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-nat-ap-southeast-2b"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # module.network.aws_network_acl.tier["application"] will be created
+  + resource "aws_network_acl" "tier" {
+      + arn        = (known after apply)
+      + egress     = (known after apply)
+      + id         = (known after apply)
+      + ingress    = (known after apply)
+      + owner_id   = (known after apply)
+      + region     = "ap-southeast-2"
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Name" = "xtremax-wordpress-application"
+          + "Tier" = "application"
+        }
+      + tags_all   = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-application"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "application"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # module.network.aws_network_acl.tier["database"] will be created
+  + resource "aws_network_acl" "tier" {
+      + arn        = (known after apply)
+      + egress     = (known after apply)
+      + id         = (known after apply)
+      + ingress    = (known after apply)
+      + owner_id   = (known after apply)
+      + region     = "ap-southeast-2"
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Name" = "xtremax-wordpress-database"
+          + "Tier" = "database"
+        }
+      + tags_all   = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-database"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "database"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # module.network.aws_network_acl.tier["public"] will be created
+  + resource "aws_network_acl" "tier" {
+      + arn        = (known after apply)
+      + egress     = (known after apply)
+      + id         = (known after apply)
+      + ingress    = (known after apply)
+      + owner_id   = (known after apply)
+      + region     = "ap-southeast-2"
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Name" = "xtremax-wordpress-public"
+          + "Tier" = "public"
+        }
+      + tags_all   = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-public"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "public"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # module.network.aws_network_acl_association.this["application-ap-southeast-2a"] will be created
+  + resource "aws_network_acl_association" "this" {
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + region         = "ap-southeast-2"
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_network_acl_association.this["application-ap-southeast-2b"] will be created
+  + resource "aws_network_acl_association" "this" {
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + region         = "ap-southeast-2"
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_network_acl_association.this["database-ap-southeast-2a"] will be created
+  + resource "aws_network_acl_association" "this" {
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + region         = "ap-southeast-2"
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_network_acl_association.this["database-ap-southeast-2b"] will be created
+  + resource "aws_network_acl_association" "this" {
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + region         = "ap-southeast-2"
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_network_acl_association.this["public-ap-southeast-2a"] will be created
+  + resource "aws_network_acl_association" "this" {
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + region         = "ap-southeast-2"
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_network_acl_association.this["public-ap-southeast-2b"] will be created
+  + resource "aws_network_acl_association" "this" {
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + region         = "ap-southeast-2"
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_network_acl_rule.this["application_in_http_0"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.0.0/24"
+      + egress         = false
+      + from_port      = 80
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 200
+      + to_port        = 80
+    }
+
+  # module.network.aws_network_acl_rule.this["application_in_http_1"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.1.0/24"
+      + egress         = false
+      + from_port      = 80
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 201
+      + to_port        = 80
+    }
+
+  # module.network.aws_network_acl_rule.this["application_in_nfs_0"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.2.0/24"
+      + egress         = false
+      + from_port      = 2049
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 300
+      + to_port        = 2049
+    }
+
+  # module.network.aws_network_acl_rule.this["application_in_nfs_1"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.3.0/24"
+      + egress         = false
+      + from_port      = 2049
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 301
+      + to_port        = 2049
+    }
+
+  # module.network.aws_network_acl_rule.this["application_in_return"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = false
+      + from_port      = 1024
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 65535
+    }
+
+  # module.network.aws_network_acl_rule.this["application_out_https"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = true
+      + from_port      = 443
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 443
+    }
+
+  # module.network.aws_network_acl_rule.this["application_out_mysql_0"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.4.0/24"
+      + egress         = true
+      + from_port      = 3306
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 400
+      + to_port        = 3306
+    }
+
+  # module.network.aws_network_acl_rule.this["application_out_mysql_1"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.5.0/24"
+      + egress         = true
+      + from_port      = 3306
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 401
+      + to_port        = 3306
+    }
+
+  # module.network.aws_network_acl_rule.this["application_out_nfs_0"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.2.0/24"
+      + egress         = true
+      + from_port      = 2049
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 300
+      + to_port        = 2049
+    }
+
+  # module.network.aws_network_acl_rule.this["application_out_nfs_1"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.3.0/24"
+      + egress         = true
+      + from_port      = 2049
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 301
+      + to_port        = 2049
+    }
+
+  # module.network.aws_network_acl_rule.this["application_out_return"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.0.0/16"
+      + egress         = true
+      + from_port      = 1024
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 110
+      + to_port        = 65535
+    }
+
+  # module.network.aws_network_acl_rule.this["database_in_mysql_0"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.2.0/24"
+      + egress         = false
+      + from_port      = 3306
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 3306
+    }
+
+  # module.network.aws_network_acl_rule.this["database_in_mysql_1"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.3.0/24"
+      + egress         = false
+      + from_port      = 3306
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 101
+      + to_port        = 3306
+    }
+
+  # module.network.aws_network_acl_rule.this["database_out_return_0"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.2.0/24"
+      + egress         = true
+      + from_port      = 1024
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 65535
+    }
+
+  # module.network.aws_network_acl_rule.this["database_out_return_1"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.3.0/24"
+      + egress         = true
+      + from_port      = 1024
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 101
+      + to_port        = 65535
+    }
+
+  # module.network.aws_network_acl_rule.this["public_in_https"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = false
+      + from_port      = 443
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 443
+    }
+
+  # module.network.aws_network_acl_rule.this["public_in_return"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = false
+      + from_port      = 1024
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 110
+      + to_port        = 65535
+    }
+
+  # module.network.aws_network_acl_rule.this["public_out_http_0"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.2.0/24"
+      + egress         = true
+      + from_port      = 80
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 200
+      + to_port        = 80
+    }
+
+  # module.network.aws_network_acl_rule.this["public_out_http_1"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "10.20.3.0/24"
+      + egress         = true
+      + from_port      = 80
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 201
+      + to_port        = 80
+    }
+
+  # module.network.aws_network_acl_rule.this["public_out_https"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = true
+      + from_port      = 443
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 443
+    }
+
+  # module.network.aws_network_acl_rule.this["public_out_return"] will be created
+  + resource "aws_network_acl_rule" "this" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = true
+      + from_port      = 1024
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "tcp"
+      + region         = "ap-southeast-2"
+      + rule_action    = "allow"
+      + rule_number    = 110
+      + to_port        = 65535
+    }
+
+  # module.network.aws_route.application_internet["ap-southeast-2a"] will be created
+  + resource "aws_route" "application_internet" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "ap-southeast-2"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # module.network.aws_route.application_internet["ap-southeast-2b"] will be created
+  + resource "aws_route" "application_internet" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "ap-southeast-2"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # module.network.aws_route.public_internet will be created
+  + resource "aws_route" "public_internet" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "ap-southeast-2"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # module.network.aws_route_table.application["ap-southeast-2a"] will be created
+  + resource "aws_route_table" "application" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "ap-southeast-2"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "xtremax-wordpress-application-ap-southeast-2a"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-application-ap-southeast-2a"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.network.aws_route_table.application["ap-southeast-2b"] will be created
+  + resource "aws_route_table" "application" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "ap-southeast-2"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "xtremax-wordpress-application-ap-southeast-2b"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-application-ap-southeast-2b"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.network.aws_route_table.database will be created
+  + resource "aws_route_table" "database" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "ap-southeast-2"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "xtremax-wordpress-database-isolated"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-database-isolated"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.network.aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "ap-southeast-2"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "xtremax-wordpress-public"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-public"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.network.aws_route_table_association.this["application-ap-southeast-2a"] will be created
+  + resource "aws_route_table_association" "this" {
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_route_table_association.this["application-ap-southeast-2b"] will be created
+  + resource "aws_route_table_association" "this" {
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_route_table_association.this["database-ap-southeast-2a"] will be created
+  + resource "aws_route_table_association" "this" {
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_route_table_association.this["database-ap-southeast-2b"] will be created
+  + resource "aws_route_table_association" "this" {
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_route_table_association.this["public-ap-southeast-2a"] will be created
+  + resource "aws_route_table_association" "this" {
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_route_table_association.this["public-ap-southeast-2b"] will be created
+  + resource "aws_route_table_association" "this" {
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_subnet.this["application-ap-southeast-2a"] will be created
+  + resource "aws_subnet" "this" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-2a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-southeast-2"
+      + tags                                           = {
+          + "Name" = "xtremax-wordpress-application-ap-southeast-2a"
+          + "Tier" = "application"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-application-ap-southeast-2a"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "application"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.network.aws_subnet.this["application-ap-southeast-2b"] will be created
+  + resource "aws_subnet" "this" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-2b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.3.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-southeast-2"
+      + tags                                           = {
+          + "Name" = "xtremax-wordpress-application-ap-southeast-2b"
+          + "Tier" = "application"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-application-ap-southeast-2b"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "application"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.network.aws_subnet.this["database-ap-southeast-2a"] will be created
+  + resource "aws_subnet" "this" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-2a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.4.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-southeast-2"
+      + tags                                           = {
+          + "Name" = "xtremax-wordpress-database-ap-southeast-2a"
+          + "Tier" = "database"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-database-ap-southeast-2a"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "database"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.network.aws_subnet.this["database-ap-southeast-2b"] will be created
+  + resource "aws_subnet" "this" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-2b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.5.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-southeast-2"
+      + tags                                           = {
+          + "Name" = "xtremax-wordpress-database-ap-southeast-2b"
+          + "Tier" = "database"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-database-ap-southeast-2b"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "database"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.network.aws_subnet.this["public-ap-southeast-2a"] will be created
+  + resource "aws_subnet" "this" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-2a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-southeast-2"
+      + tags                                           = {
+          + "Name" = "xtremax-wordpress-public-ap-southeast-2a"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-public-ap-southeast-2a"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.network.aws_subnet.this["public-ap-southeast-2b"] will be created
+  + resource "aws_subnet" "this" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-2b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-southeast-2"
+      + tags                                           = {
+          + "Name" = "xtremax-wordpress-public-ap-southeast-2b"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-public-ap-southeast-2b"
+          + "Project"   = "xtremax-wordpress"
+          + "Tier"      = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.network.aws_vpc.this will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.20.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "ap-southeast-2"
+      + tags                                 = {
+          + "Name" = "xtremax-wordpress"
+        }
+      + tags_all                             = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress"
+          + "Project"   = "xtremax-wordpress"
+        }
+    }
+
+  # module.security.aws_security_group.tier["alb"] will be created
+  + resource "aws_security_group" "tier" {
+      + arn                    = (known after apply)
+      + description            = "Dedicated alb security group; rules managed separately"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "xtremax-[REDACTED-SENSITIVE]-"
+      + owner_id               = (known after apply)
+      + region                 = "ap-southeast-2"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "xtremax-[REDACTED-SENSITIVE]"
+        }
+      + tags_all               = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-[REDACTED-SENSITIVE]"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.security.aws_security_group.tier["application"] will be created
+  + resource "aws_security_group" "tier" {
+      + arn                    = (known after apply)
+      + description            = "Dedicated application security group; rules managed separately"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "xtremax-wordpress-application-"
+      + owner_id               = (known after apply)
+      + region                 = "ap-southeast-2"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "xtremax-wordpress-application"
+        }
+      + tags_all               = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-application"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.security.aws_security_group.tier["database"] will be created
+  + resource "aws_security_group" "tier" {
+      + arn                    = (known after apply)
+      + description            = "Dedicated database security group; rules managed separately"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "xtremax-wordpress-database-"
+      + owner_id               = (known after apply)
+      + region                 = "ap-southeast-2"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "xtremax-wordpress-database"
+        }
+      + tags_all               = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-database"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.security.aws_security_group.tier["efs"] will be created
+  + resource "aws_security_group" "tier" {
+      + arn                    = (known after apply)
+      + description            = "Dedicated efs security group; rules managed separately"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "xtremax-wordpress-efs-"
+      + owner_id               = (known after apply)
+      + region                 = "ap-southeast-2"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "xtremax-wordpress-efs"
+        }
+      + tags_all               = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-efs"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.security.aws_vpc_security_group_egress_rule.application_https will be created
+  + resource "aws_vpc_security_group_egress_rule" "application_https" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + description            = "HTTPS bootstrap and AWS APIs through NAT"
+      + from_port              = 443
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "ap-southeast-2"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + to_port                = 443
+    }
+
+  # module.security.aws_vpc_security_group_egress_rule.internal["alb_application"] will be created
+  + resource "aws_vpc_security_group_egress_rule" "internal" {
+      + arn                          = (known after apply)
+      + description                  = "alb_application"
+      + from_port                    = 80
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + region                       = "ap-southeast-2"
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + to_port                      = 80
+    }
+
+  # module.security.aws_vpc_security_group_egress_rule.internal["application_db"] will be created
+  + resource "aws_vpc_security_group_egress_rule" "internal" {
+      + arn                          = (known after apply)
+      + description                  = "application_db"
+      + from_port                    = 3306
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + region                       = "ap-southeast-2"
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + to_port                      = 3306
+    }
+
+  # module.security.aws_vpc_security_group_egress_rule.internal["application_efs"] will be created
+  + resource "aws_vpc_security_group_egress_rule" "internal" {
+      + arn                          = (known after apply)
+      + description                  = "application_efs"
+      + from_port                    = 2049
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + region                       = "ap-southeast-2"
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + to_port                      = 2049
+    }
+
+  # module.security.aws_vpc_security_group_ingress_rule.cloudfront_alb will be created
+  + resource "aws_vpc_security_group_ingress_rule" "cloudfront_alb" {
+      + arn                    = (known after apply)
+      + description            = "HTTPS from CloudFront origin-facing servers"
+      + from_port              = 443
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + prefix_list_id         = "pl-b8a742d1"
+      + region                 = "ap-southeast-2"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + to_port                = 443
+    }
+
+  # module.security.aws_vpc_security_group_ingress_rule.internal["alb_application"] will be created
+  + resource "aws_vpc_security_group_ingress_rule" "internal" {
+      + arn                          = (known after apply)
+      + description                  = "alb_application"
+      + from_port                    = 80
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + region                       = "ap-southeast-2"
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + to_port                      = 80
+    }
+
+  # module.security.aws_vpc_security_group_ingress_rule.internal["application_db"] will be created
+  + resource "aws_vpc_security_group_ingress_rule" "internal" {
+      + arn                          = (known after apply)
+      + description                  = "application_db"
+      + from_port                    = 3306
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + region                       = "ap-southeast-2"
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + to_port                      = 3306
+    }
+
+  # module.security.aws_vpc_security_group_ingress_rule.internal["application_efs"] will be created
+  + resource "aws_vpc_security_group_ingress_rule" "internal" {
+      + arn                          = (known after apply)
+      + description                  = "application_efs"
+      + from_port                    = 2049
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + region                       = "ap-southeast-2"
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {
+          + "ManagedBy" = "Terraform"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + to_port                      = 2049
+    }
+
+  # module.storage.aws_efs_access_point.wordpress will be created
+  + resource "aws_efs_access_point" "wordpress" {
+      + arn             = (known after apply)
+      + file_system_arn = (known after apply)
+      + file_system_id  = (known after apply)
+      + id              = (known after apply)
+      + owner_id        = (known after apply)
+      + region          = "ap-southeast-2"
+      + tags            = {
+          + "Name" = "xtremax-wordpress-wordpress"
+        }
+      + tags_all        = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-wordpress"
+          + "Project"   = "xtremax-wordpress"
+        }
+
+      + posix_user {
+          + gid = 48
+          + uid = 48
+        }
+
+      + root_directory {
+          + path = "/wordpress"
+
+          + creation_info {
+              + owner_gid   = 48
+              + owner_uid   = 48
+              + permissions = "0755"
+            }
+        }
+    }
+
+  # module.storage.aws_efs_backup_policy.this will be created
+  + resource "aws_efs_backup_policy" "this" {
+      + file_system_id = (known after apply)
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+
+      + backup_policy {
+          + status = "ENABLED"
+        }
+    }
+
+  # module.storage.aws_efs_file_system.this will be created
+  + resource "aws_efs_file_system" "this" {
+      + arn                     = (known after apply)
+      + availability_zone_id    = (known after apply)
+      + availability_zone_name  = (known after apply)
+      + creation_token          = (known after apply)
+      + dns_name                = (known after apply)
+      + encrypted               = true
+      + id                      = (known after apply)
+      + kms_key_id              = (known after apply)
+      + name                    = (known after apply)
+      + number_of_mount_targets = (known after apply)
+      + owner_id                = (known after apply)
+      + performance_mode        = "generalPurpose"
+      + region                  = "ap-southeast-2"
+      + size_in_bytes           = (known after apply)
+      + tags                    = {
+          + "Name" = "xtremax-wordpress-content"
+        }
+      + tags_all                = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "xtremax-wordpress-content"
+          + "Project"   = "xtremax-wordpress"
+        }
+      + throughput_mode         = "elastic"
+
+      + protection (known after apply)
+    }
+
+  # module.storage.aws_efs_file_system_policy.this will be created
+  + resource "aws_efs_file_system_policy" "this" {
+      + bypass_policy_lockout_safety_check = false
+      + file_system_id                     = (known after apply)
+      + id                                 = (known after apply)
+      + policy                             = (known after apply)
+      + region                             = "ap-southeast-2"
+    }
+
+  # module.storage.aws_efs_mount_target.this["ap-southeast-2a"] will be created
+  + resource "aws_efs_mount_target" "this" {
+      + availability_zone_id   = (known after apply)
+      + availability_zone_name = (known after apply)
+      + dns_name               = (known after apply)
+      + file_system_arn        = (known after apply)
+      + file_system_id         = (known after apply)
+      + id                     = (known after apply)
+      + ip_address             = (known after apply)
+      + ip_address_type        = (known after apply)
+      + ipv6_address           = (known after apply)
+      + mount_target_dns_name  = (known after apply)
+      + network_interface_id   = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "ap-southeast-2"
+      + security_groups        = (known after apply)
+      + subnet_id              = (known after apply)
+    }
+
+  # module.storage.aws_efs_mount_target.this["ap-southeast-2b"] will be created
+  + resource "aws_efs_mount_target" "this" {
+      + availability_zone_id   = (known after apply)
+      + availability_zone_name = (known after apply)
+      + dns_name               = (known after apply)
+      + file_system_arn        = (known after apply)
+      + file_system_id         = (known after apply)
+      + id                     = (known after apply)
+      + ip_address             = (known after apply)
+      + ip_address_type        = (known after apply)
+      + ipv6_address           = (known after apply)
+      + mount_target_dns_name  = (known after apply)
+      + network_interface_id   = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "ap-southeast-2"
+      + security_groups        = (known after apply)
+      + subnet_id              = (known after apply)
+    }
+
+Plan: 108 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + application                = {
+      + application_secret_arn = (known after apply)
+      + autoscaling_group_name = (known after apply)
+      + instance_role_arn      = (known after apply)
+    }
+  + aws_connection             = {
+      + account_id = "[AWS-ACCOUNT-ID]"
+      + region     = "ap-southeast-2"
+    }
+  + certificate_dns_validation = {
+      + origin = [
+          + {
+              + domain_name           = "[REDACTED-SENSITIVE]"
+              + resource_record_name  = (known after apply)
+              + resource_record_type  = (known after apply)
+              + resource_record_value = (known after apply)
+            },
+        ]
+      + viewer = [
+          + {
+              + domain_name           = "school.example.com"
+              + resource_record_name  = (known after apply)
+              + resource_record_type  = (known after apply)
+              + resource_record_value = (known after apply)
+            },
+        ]
+    }
+  + database                   = {
+      + address           = (known after apply)
+      + database_name     = "wordpress"
+      + master_secret_arn = (known after apply)
+      + port              = 3306
+    }
+  + network                    = {
+      + nat_gateway_ids = {
+          + ap-southeast-2a = (known after apply)
+          + ap-southeast-2b = (known after apply)
+        }
+      + subnets         = {
+          + application = {
+              + ap-southeast-2a = {
+                  + cidr = "10.20.2.0/24"
+                  + id   = (known after apply)
+                }
+              + ap-southeast-2b = {
+                  + cidr = "10.20.3.0/24"
+                  + id   = (known after apply)
+                }
+            }
+          + database    = {
+              + ap-southeast-2a = {
+                  + cidr = "10.20.4.0/24"
+                  + id   = (known after apply)
+                }
+              + ap-southeast-2b = {
+                  + cidr = "10.20.5.0/24"
+                  + id   = (known after apply)
+                }
+            }
+          + public      = {
+              + ap-southeast-2a = {
+                  + cidr = "10.20.0.0/24"
+                  + id   = (known after apply)
+                }
+              + ap-southeast-2b = {
+                  + cidr = "10.20.1.0/24"
+                  + id   = (known after apply)
+                }
+            }
+        }
+      + vpc_id          = (known after apply)
+    }
+  + shared_content             = {
+      + access_point_arn = (known after apply)
+      + access_point_id  = (known after apply)
+      + arn              = (known after apply)
+      + dns_name         = (known after apply)
+      + id               = (known after apply)
+    }
+  + website                    = {
+      + alb_dns_name = (known after apply)
+      + distribution = {
+          + domain_name    = (known after apply)
+          + hosted_zone_id = (known after apply)
+          + id             = (known after apply)
+        }
+      + origin_dns   = "[REDACTED-SENSITIVE]"
+      + url          = "https://school.example.com"
+    }
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: [PRIVATE-SAVED-PLAN]
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "[PRIVATE-SAVED-PLAN]"

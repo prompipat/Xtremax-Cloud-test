@@ -1,0 +1,46 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "text_characters": 2524
+    },
+    {
+      "page": 2,
+      "text_characters": 1845
+    },
+    {
+      "page": 3,
+      "text_characters": 2433
+    },
+    {
+      "page": 4,
+      "text_characters": 1675
+    },
+    {
+      "page": 5,
+      "text_characters": 2154
+    },
+    {
+      "page": 6,
+      "text_characters": 3273
+    },
+    {
+      "page": 7,
+      "text_characters": 3180
+    },
+    {
+      "page": 8,
+      "text_characters": 2641
+    },
+    {
+      "page": 9,
+      "text_characters": 2817
+    }
+  ],
+  "required_statements_present": true,
+  "visual_review_pages": [
+    3,
+    4,
+    9
+  ]
+}

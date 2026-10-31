@@ -1,0 +1,25 @@
+flowchart TD
+    Root[Root: providers / variables / DNS / outputs] --> Network[network]
+    Root --> Certificates[certificates / aws.us_east_1 alias]
+    Root --> Header[random origin header]
+    Network --> Security[security]
+    Network --> Database[database]
+    Network --> Storage[storage]
+    Security --> Database
+    Security --> Storage
+    Database --> Initialization[initialization]
+    Network --> Initialization
+    Security --> Initialization
+    Initialization --> Compute[compute]
+    Storage --> Compute
+    Security --> Compute
+    Network --> ALB[load_balancer]
+    Security --> ALB
+    Certificates --> ALB
+    Header --> ALB
+    ALB -->|target group| Compute
+    ALB --> OriginDNS[Root origin DNS record / external DNS]
+    OriginDNS --> CDN[cdn]
+    Certificates --> CDN
+    Header --> CDN
+    CDN --> SiteDNS[Root site DNS records / external DNS]

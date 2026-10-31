@@ -1,0 +1,114 @@
+Final local verification - 2026-11-01 (Asia/Bangkok)
+Scope: static, mocked and fake-client checks; no real deployment.
+
+$ terraform.exe fmt -check -recursive
+
+
+PASS
+
+$ terraform.exe validate -no-color
+Success! The configuration is valid.
+
+
+
+PASS
+
+$ terraform.exe test -no-color
+tests\certificates.tftest.hcl... in progress
+  run "external_dns_certificates"... pass
+  run "route53_dns_certificates"... pass
+tests\certificates.tftest.hcl... tearing down
+tests\certificates.tftest.hcl... pass
+tests\compute.tftest.hcl... in progress
+  run "fleet_security_and_scaling"... pass
+  run "reject_capacity_above_four"... pass
+tests\compute.tftest.hcl... tearing down
+tests\compute.tftest.hcl... pass
+tests\data-services.tftest.hcl... in progress
+  run "security_boundaries"... pass
+  run "private_encrypted_mysql"... pass
+  run "single_az_lab_database"... pass
+  run "shared_content_guards"... pass
+tests\data-services.tftest.hcl... tearing down
+tests\data-services.tftest.hcl... pass
+tests\frontend.tftest.hcl... in progress
+  run "alb_origin_gate_and_readiness"... pass
+  run "cdn_https_dynamic_and_static_cache"... pass
+tests\frontend.tftest.hcl... tearing down
+tests\frontend.tftest.hcl... pass
+tests\initialization.tftest.hcl... in progress
+  run "separate_database_initializer"... pass
+tests\initialization.tftest.hcl... tearing down
+tests\initialization.tftest.hcl... pass
+tests\network.tftest.hcl... in progress
+  run "two_az_network"... pass
+  run "single_nat_lab"... pass
+  run "reject_duplicate_zones"... pass
+tests\network.tftest.hcl... tearing down
+tests\network.tftest.hcl... pass
+
+Success! 14 passed, 0 failed.
+
+
+PASS
+
+$ python.exe -m unittest discover -s tests -p test_*.py -v
+
+test_failed_lock_does_not_read_or_change_application_secret (test_initializer.InitializerTests.test_failed_lock_does_not_read_or_change_application_secret) ... ok
+test_new_credentials_created_after_lock_and_only_schema_granted (test_initializer.InitializerTests.test_new_credentials_created_after_lock_and_only_schema_granted) ... ok
+test_retry_reuses_existing_application_password (test_initializer.InitializerTests.test_retry_reuses_existing_application_password) ... ok
+test_sql_failure_releases_lock_and_retains_retry_credentials (test_initializer.InitializerTests.test_sql_failure_releases_lock_and_retains_retry_credentials) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+OK
+
+PASS
+
+$ python.exe scripts/check-rendered-userdata.py .private/compute-tests.jsonl
+Rendered user data: PASS (5588 compressed bytes; no credential values in settings)
+
+
+PASS
+
+$ php.exe -n -l modules\compute\templates\health.php
+No syntax errors detected in modules\compute\templates\health.php
+
+
+PASS
+
+$ php.exe -n -l modules\compute\templates\install-wordpress.php
+No syntax errors detected in modules\compute\templates\install-wordpress.php
+
+
+PASS
+
+$ php.exe -n -l modules\compute\templates\wp-config.php
+No syntax errors detected in modules\compute\templates\wp-config.php
+
+
+PASS
+
+$ php.exe -n -d extension_dir=[WORKSPACE]\.tools\php\ext -d extension=mysqli tests/check-php-tls.php
+PHP mysqli TLS verification flags: PASS
+
+
+PASS
+
+$ bash.exe -n .private/rendered-user-data.sh
+
+
+PASS
+
+$ bash.exe -n modules/compute/templates/bootstrap.sh
+
+
+PASS
+
+$ bash.exe -n modules/compute/templates/initialize-content.sh
+
+
+PASS
+Initializer artifact source and locked CA: PASS
+Separate real AWS-backed plan: 108 to add, 0 to change, 0 to destroy; 9 derived checks passed.

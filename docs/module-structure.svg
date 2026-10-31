@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="840" viewBox="0 0 1040 840" role="img" aria-label="Terraform root and module structure">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#52657b"/></marker></defs>
+<rect width="1040" height="840" fill="#ffffff"/>
+<style>text{font-family:Arial,sans-serif;fill:#17283c}.title{font-size:25px;font-weight:700}.label{font-size:16px;font-weight:700}.body{font-size:14px}.note{font-size:13px;fill:#52657b}.edge{fill:none;stroke:#52657b;stroke-width:2;marker-end:url(#arrow)}</style>
+<style>.label{font-size:19px}.body{font-size:16px}</style>
+<text x="30" y="35" class="title" text-anchor="start">Terraform module structure</text>
+<rect x="300" y="65" width="460" height="85" rx="10" fill="#eaf6f2" stroke="#8dbbad" stroke-width="1.5"/>
+<text x="530.0" y="93" class="label" text-anchor="middle">Root configuration</text>
+<text x="530.0" y="117" class="body" text-anchor="middle">Provider aliases, variables, outputs, DNS records</text>
+<text x="530.0" y="139" class="body" text-anchor="middle">Random origin header + nine local modules</text>
+<path d="M530 150 L530 200 M40 200 L720 200 M40 200 L40 650 M380 200 L380 650 M720 200 L720 650" fill="none" stroke="#52657b" stroke-width="2"/>
+<path d="M40 305 L60 305" class="edge"/>
+<rect x="60" y="245" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="190.0" y="273" class="label" text-anchor="middle">network</text>
+<text x="190.0" y="297" class="body" text-anchor="middle">VPC / subnet tiers</text>
+<text x="190.0" y="319" class="body" text-anchor="middle">NAT / routes / NACLs</text>
+<path d="M40 475 L60 475" class="edge"/>
+<rect x="60" y="415" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="190.0" y="443" class="label" text-anchor="middle">security</text>
+<text x="190.0" y="467" class="body" text-anchor="middle">Workload SGs</text>
+<text x="190.0" y="489" class="body" text-anchor="middle">Tier traffic rules</text>
+<path d="M40 645 L60 645" class="edge"/>
+<rect x="60" y="585" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="190.0" y="613" class="label" text-anchor="middle">database</text>
+<text x="190.0" y="637" class="body" text-anchor="middle">RDS MySQL</text>
+<text x="190.0" y="659" class="body" text-anchor="middle">TLS / backups</text>
+<path d="M380 305 L400 305" class="edge"/>
+<rect x="400" y="245" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="530.0" y="273" class="label" text-anchor="middle">storage</text>
+<text x="530.0" y="297" class="body" text-anchor="middle">EFS / mount targets</text>
+<text x="530.0" y="319" class="body" text-anchor="middle">Access point / policy</text>
+<path d="M380 475 L400 475" class="edge"/>
+<rect x="400" y="415" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="530.0" y="443" class="label" text-anchor="middle">initialization</text>
+<text x="530.0" y="467" class="body" text-anchor="middle">Private Lambda</text>
+<text x="530.0" y="489" class="body" text-anchor="middle">Scoped DB account</text>
+<path d="M380 645 L400 645" class="edge"/>
+<rect x="400" y="585" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="530.0" y="613" class="label" text-anchor="middle">compute</text>
+<text x="530.0" y="637" class="body" text-anchor="middle">Role / LT / ASG</text>
+<text x="530.0" y="659" class="body" text-anchor="middle">Bootstrap / scaling</text>
+<path d="M720 305 L740 305" class="edge"/>
+<rect x="740" y="245" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="870.0" y="273" class="label" text-anchor="middle">certificates</text>
+<text x="870.0" y="297" class="body" text-anchor="middle">Origin + viewer ACM</text>
+<text x="870.0" y="319" class="body" text-anchor="middle">DNS validation</text>
+<path d="M720 475 L740 475" class="edge"/>
+<rect x="740" y="415" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="870.0" y="443" class="label" text-anchor="middle">load_balancer</text>
+<text x="870.0" y="467" class="body" text-anchor="middle">HTTPS ALB</text>
+<text x="870.0" y="489" class="body" text-anchor="middle">Header gate / TG</text>
+<path d="M720 645 L740 645" class="edge"/>
+<rect x="740" y="585" width="260" height="120" rx="10" fill="#eef4ff" stroke="#a4bbda" stroke-width="1.5"/>
+<text x="870.0" y="613" class="label" text-anchor="middle">cdn</text>
+<text x="870.0" y="637" class="body" text-anchor="middle">CloudFront</text>
+<text x="870.0" y="659" class="body" text-anchor="middle">Cache / HTTPS</text>
+<text x="520" y="755" class="body" text-anchor="middle">Each module: main.tf • variables.tf • outputs.tf • versions.tf • README.md</text>
+<text x="520" y="780" class="body" text-anchor="middle">Root DNS records keep certificate/ALB/CDN dependencies acyclic.</text>
+<text x="520" y="805" class="body" text-anchor="middle">Detailed dependency graph: module-structure.mmd. I/O contracts: module READMEs and report.</text>
+</svg>

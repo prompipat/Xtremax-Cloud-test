@@ -1,0 +1,86 @@
+Extracted source bundle: manifest and reviewed-configuration hashes match.
+Scope: initialization/validation/mocked tests only; verified local providers reused; no AWS resources created.
+
+$ terraform init -backend=false -input=false -no-color -lockfile=readonly
+Initializing modules...
+- initialization in modules\initialization
+- storage in modules\storage
+- security in modules\security
+- load_balancer in modules\load_balancer
+- network in modules\network
+- compute in modules\compute
+- database in modules\database
+- certificates in modules\certificates
+- cdn in modules\cdn
+- test.tests\initialization.separate_database_initializer in modules\initialization
+- test.tests\network.two_az_network in modules\network
+- test.tests\network.single_nat_lab in modules\network
+- test.tests\network.reject_duplicate_zones in modules\network
+- test.tests\compute.fleet_security_and_scaling in modules\compute
+- test.tests\compute.reject_capacity_above_four in modules\compute
+- test.tests\data-services.security_boundaries in modules\security
+- test.tests\data-services.private_encrypted_mysql in modules\database
+- test.tests\data-services.single_az_lab_database in modules\database
+- test.tests\data-services.shared_content_guards in modules\storage
+- test.tests\frontend.alb_origin_gate_and_readiness in modules\load_balancer
+- test.tests\frontend.cdn_https_dynamic_and_static_cache in modules\cdn
+
+Initializing provider plugins...
+- Reusing version 3.9.1 of hashicorp/random from the dependency lock file
+- Reusing version 6.71.0 of hashicorp/aws from the dependency lock file
+- Installing hashicorp/random v3.9.1...
+- Installed hashicorp/random v3.9.1 (unauthenticated)
+- Installing hashicorp/aws v6.71.0...
+- Installed hashicorp/aws v6.71.0 (unauthenticated)
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+
+$ terraform validate -no-color
+Success! The configuration is valid.
+
+
+
+$ terraform test -no-color
+tests\certificates.tftest.hcl... in progress
+  run "external_dns_certificates"... pass
+  run "route53_dns_certificates"... pass
+tests\certificates.tftest.hcl... tearing down
+tests\certificates.tftest.hcl... pass
+tests\compute.tftest.hcl... in progress
+  run "fleet_security_and_scaling"... pass
+  run "reject_capacity_above_four"... pass
+tests\compute.tftest.hcl... tearing down
+tests\compute.tftest.hcl... pass
+tests\data-services.tftest.hcl... in progress
+  run "security_boundaries"... pass
+  run "private_encrypted_mysql"... pass
+  run "single_az_lab_database"... pass
+  run "shared_content_guards"... pass
+tests\data-services.tftest.hcl... tearing down
+tests\data-services.tftest.hcl... pass
+tests\frontend.tftest.hcl... in progress
+  run "alb_origin_gate_and_readiness"... pass
+  run "cdn_https_dynamic_and_static_cache"... pass
+tests\frontend.tftest.hcl... tearing down
+tests\frontend.tftest.hcl... pass
+tests\initialization.tftest.hcl... in progress
+  run "separate_database_initializer"... pass
+tests\initialization.tftest.hcl... tearing down
+tests\initialization.tftest.hcl... pass
+tests\network.tftest.hcl... in progress
+  run "two_az_network"... pass
+  run "single_nat_lab"... pass
+  run "reject_duplicate_zones"... pass
+tests\network.tftest.hcl... tearing down
+tests\network.tftest.hcl... pass
+
+Success! 14 passed, 0 failed.

@@ -1,0 +1,43 @@
+﻿Terraform fmt: PASS
+tests\compute.tftest.hcl... in progress
+  run "fleet_security_and_scaling"... pass
+  run "reject_capacity_above_four"... pass
+tests\compute.tftest.hcl... tearing down
+tests\compute.tftest.hcl... pass
+tests\data-services.tftest.hcl... in progress
+  run "security_boundaries"... pass
+  run "private_encrypted_mysql"... pass
+  run "single_az_lab_database"... pass
+  run "shared_content_guards"... pass
+tests\data-services.tftest.hcl... tearing down
+tests\data-services.tftest.hcl... pass
+tests\initialization.tftest.hcl... in progress
+  run "separate_database_initializer"... pass
+tests\initialization.tftest.hcl... tearing down
+tests\initialization.tftest.hcl... pass
+tests\network.tftest.hcl... in progress
+  run "two_az_network"... pass
+  run "single_nat_lab"... pass
+  run "reject_duplicate_zones"... pass
+tests\network.tftest.hcl... tearing down
+tests\network.tftest.hcl... pass
+
+Success! 10 passed, 0 failed.
+test_failed_lock_does_not_read_or_change_application_secret (test_initializer.InitializerTests.test_failed_lock_does_not_read_or_change_application_secret) ... ok
+test_new_credentials_created_after_lock_and_only_schema_granted (test_initializer.InitializerTests.test_new_credentials_created_after_lock_and_only_schema_granted) ... ok
+test_retry_reuses_existing_application_password (test_initializer.InitializerTests.test_retry_reuses_existing_application_password) ... ok
+test_sql_failure_releases_lock_and_retains_retry_credentials (test_initializer.InitializerTests.test_sql_failure_releases_lock_and_retains_retry_credentials) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+OK
+Success! The configuration is valid.
+
+No syntax errors detected in C:\Users\promp\Workspace\Playground\Xtremax-Cloud-test\modules\compute\templates\health.php
+No syntax errors detected in C:\Users\promp\Workspace\Playground\Xtremax-Cloud-test\modules\compute\templates\install-wordpress.php
+No syntax errors detected in C:\Users\promp\Workspace\Playground\Xtremax-Cloud-test\modules\compute\templates\wp-config.php
+PHP mysqli TLS verification flags: PASS
+Rendered user data: PASS (5588 compressed bytes; no credential values in settings)
+Bash syntax: PASS (3 scripts including rendered user data)
+Plan: 94 to add, 0 to change, 0 to destroy.
