@@ -58,7 +58,7 @@ def main():
     checksums = "\n".join(hashlib.sha256(path.read_bytes()).hexdigest() + "  " + path.name for path in sorted(destination.iterdir()) if path.is_file() and path.name in ["terraform-source.zip", "report.pdf", "architecture.svg", "module-structure.svg", "submission-email.txt"]) + "\n"
     (destination / "SHA256SUMS.txt").write_text(checksums, encoding="utf-8")
     (destination / "README.txt").write_text(
-        "Prepared locally; no email has been sent.\nSend terraform-source.zip and report.pdf in one email. The ZIP already includes the report, diagrams, tests and sanitized evidence.\nExample domain names are plan-only placeholders; runtime tests are NOT RUN.\nReview submission-email.txt and replace applicant details before sending.\n",
+        "Prepared for Prompipat Thongtub; no email has been sent.\nSend terraform-source.zip and report.pdf in one email. The ZIP already includes the report, diagrams, module input/output documentation, tests and sanitized evidence.\nExample domain names are plan-only placeholders; runtime tests are NOT RUN.\nReview submission-email.txt, confirm the recruiter recipient and the four-day deadline from receipt before sending. See docs/submission-format.md inside the ZIP.\n",
         encoding="utf-8",
     )
     print(f"Source bundle: {len(files)} files, {archive_path.stat().st_size:,} bytes; manifest/CRC/exclusion/credential-pattern checks passed.")

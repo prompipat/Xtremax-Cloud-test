@@ -1,8 +1,13 @@
-Subject: Cloud Engineer Technical Test Submission - [Your Name]
+Subject: Cloud Engineer Technical Test Submission - Prompipat Thongtub
 
 Dear Xtremax Recruitment Team,
 
-Please find attached my Cloud Engineer technical-test submission, including the Terraform source ZIP, English implementation report, system and module diagrams, test plan/results and sanitized Terraform-plan evidence.
+Please find attached my submission for the Cloud Engineer technical test:
+
+1. terraform-source.zip - Terraform source, module input/output documentation, system and module structure diagrams, test plan/results, sanitized Terraform-plan evidence and a copy of the report.
+2. report.pdf - The implementation report covering the architecture, configuration, security measures, module structure and inputs/outputs, and test results.
+
+All deliverables are included in this email, as requested in the test instructions. The source is also available at https://github.com/prompipat/Xtremax-Cloud-test for convenience.
 
 I used the plan-only option permitted by the test. The complete configuration passed Terraform validation and a real AWS-backed plan (108 additions, 0 changes, 0 deletions), alongside 14 mocked Terraform runs and four initializer unit tests. No AWS resources were deployed.
 
@@ -11,5 +16,4 @@ The report explicitly identifies school.example.com and origin.example.com as pl
 Please let me know if you would like any further explanation of the design or evidence.
 
 Kind regards,
-[Your Name]
-[Your Contact Details]
+Prompipat Thongtub

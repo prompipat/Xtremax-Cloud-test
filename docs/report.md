@@ -2,7 +2,7 @@
 
 ## Technical implementation report
 
-Prepared: 1 November 2026 (Asia/Bangkok). Region: **ap-southeast-2**. Submission mode: **Terraform plan only; no deployment**.
+Prepared by **Prompipat Thongtub**. Date: 1 November 2026 (Asia/Bangkok). Region: **ap-southeast-2**. Submission mode: **Terraform plan only; no deployment**.
 
 ### 1. Executive summary
 

@@ -20,7 +20,7 @@
     li {margin-bottom:1.5mm; overflow-wrap:anywhere}
     </style><body><h1 id="xtremax-cloud-engineer-technical-test">Xtremax Cloud Engineer Technical Test</h1>
 <h2 id="technical-implementation-report">Technical implementation report</h2>
-<p>Prepared: 1 November 2026 (Asia/Bangkok). Region: <strong>ap-southeast-2</strong>. Submission mode: <strong>Terraform plan only; no deployment</strong>.</p>
+<p>Prepared by <strong>Prompipat Thongtub</strong>. Date: 1 November 2026 (Asia/Bangkok). Region: <strong>ap-southeast-2</strong>. Submission mode: <strong>Terraform plan only; no deployment</strong>.</p>
 <h3 id="1-executive-summary">1. Executive summary</h3>
 <p>This submission defines a WordPress school website on AWS using Terraform. The request path is CloudFront → HTTPS Application Load Balancer → WordPress EC2 Auto Scaling Group → private RDS MySQL. Regional EFS shares WordPress content across instances. Dedicated security groups, custom subnet NACLs, restricted IAM roles, runtime secret retrieval, encrypted storage and scaling alarms are included.</p>
 <p>The complete configuration passed Terraform initialization/validation and a real AWS-backed plan proposing <strong>108 additions, 0 changes and 0 deletions</strong>. Fourteen Terraform mocked runs and four Python unit tests passed. Shell/PHP syntax, PHP MySQL TLS flags, rendered user-data size, source/artifact consistency and full-plan configuration checks were also verified. These checks establish configuration evidence, not deployed application behavior.</p>
